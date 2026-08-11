@@ -50,6 +50,9 @@
   <script src="https://maps.googleapis.com/maps/api/js?key=__GOOGLE_MAPS_API_KEY__" defer></script>
   <style>
     html, body {
+      /* Tells the browser not to auto-darken scrollbars, form controls or the
+         canvas backdrop on a device in dark mode — the app is light-only. */
+      color-scheme: light;
       height: 100%;
       margin: 0;
       background-color: #FAFAFA;
@@ -145,23 +148,12 @@
       40% { transform: scale(1); opacity: 1; }
     }
 
-    /* Dark mode */
+    /* No dark variant on purpose. The app itself is pinned to the light
+       palette (see themeMode in main.dart), so a dark splash on a phone in
+       dark mode would hand over to a light shop — a white flash on every
+       cold start. The splash matches what loads behind it. */
     @media (prefers-color-scheme: dark) {
-      .ksvl-splash {
-        background: linear-gradient(145deg, #14100E 0%, #1D1815 50%, #272120 100%);
-      }
-      .ksvl-splash-title { color: #F6F1ED; }
-      .ksvl-splash-subtitle { color: #A2958C; }
-      .ksvl-splash-ring {
-        border-top-color: #E4A17E;
-        border-right-color: #E4A17E40;
-      }
-      .ksvl-splash-dots span { background: #E4A17E; }
-      .ksvl-splash-logo {
-        box-shadow:
-          0 4px 16px rgba(0, 0, 0, 0.35),
-          0 8px 32px rgba(0, 0, 0, 0.25);
-      }
+      .ksvl-splash { color-scheme: light; }
     }
   </style>
 </head>

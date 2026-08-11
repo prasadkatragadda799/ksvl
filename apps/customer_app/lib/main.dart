@@ -50,7 +50,12 @@ class KsvlStoreApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         theme: KsvlTheme.light,
         darkTheme: KsvlTheme.dark,
-        themeMode: ThemeMode.system,
+        // The storefront is the shop's own light, warm surface — it is the
+        // brand, not a preference. Following the device meant a customer whose
+        // phone happened to be in dark mode saw a different shop from the one
+        // in every photo and every link they were sent. The dark palette stays
+        // built and tested so this is one line to reverse.
+        themeMode: ThemeMode.light,
         scrollBehavior: const _StoreScrollBehavior(),
         home: const MainShell(),
       ),
