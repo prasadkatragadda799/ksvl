@@ -1,0 +1,35 @@
+name: customer_app
+description: "KSVL Naturals — Customer e-commerce PWA / web app."
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.12.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  provider: ^6.1.5+1
+  url_launcher: ^6.3.2
+  ksvl_shared:
+    path: ../../packages/ksvl_shared
+  geolocator: ^14.0.3
+  google_maps_flutter: ^2.13.1
+  http: ^1.6.0
+  shared_preferences: ^2.5.5
+  firebase_core: ^4.1.1
+  firebase_auth: ^6.1.1
+  cloud_firestore: ^6.1.1
+  qr_flutter: ^4.1.0
+  image_picker: ^1.2.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/

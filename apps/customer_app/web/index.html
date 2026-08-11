@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <!--
+    Without this, a phone lays the page out at its ~980px fallback width and
+    scales the whole document down, so the splash paints at roughly a third of
+    its size. The Flutter engine installs its own viewport meta once it boots,
+    which is what made the logo snap from tiny to full size a few seconds in.
+    Declaring it up front means the first paint is already the right size.
+  -->
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="Order dry fruits, spices, namkeens and masala powders from KSVL Naturals.">
+  <meta name="theme-color" content="#C85A32">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="KSVL Naturals">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+  <!-- The splash mark, fetched before the parser reaches it so it paints with
+       the rest of the splash rather than a beat later. 192px is the smallest
+       icon that still looks sharp at 96 CSS px on a 2x screen; the 512px one
+       is four times the bytes for no visible gain. -->
+  <link rel="preload" as="image" href="icons/Icon-192.png"/>
+
+  <title>KSVL Naturals</title>
+  <link rel="manifest" href="manifest.json">
+  <script src="https://maps.googleapis.com/maps/api/js?key=__GOOGLE_MAPS_API_KEY__" defer></script>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background-color: #FAFAFA;
+    }
+
+    /* ── Premium branded loading screen ────────────────────────────── */
+    .ksvl-splash {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(145deg, #FDFBF9 0%, #F8F4F0 50%, #F1EBE5 100%);
+      transition: opacity 0.5s ease-out;
+    }
+
+    .ksvl-splash.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .ksvl-splash-logo-wrap {
+      position: relative;
+      width: 96px;
+      height: 96px;
+      margin-bottom: 28px;
+    }
+
+    .ksvl-splash-logo {
+      width: 96px;
+      height: 96px;
+      border-radius: 22px;
+      transform: none;
+      box-shadow:
+        0 4px 16px rgba(200, 90, 50, 0.18),
+        0 8px 32px rgba(200, 90, 50, 0.10);
+    }
+
+    /* Gradient ring spinner around the logo */
+    .ksvl-splash-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 28px;
+      border: 2.5px solid transparent;
+      border-top-color: #B4491F;
+      border-right-color: #D2662F80;
+      animation: ksvl-ring-spin 1.2s linear infinite;
+    }
+
+    .ksvl-splash-title {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 20px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #1A1512;
+      margin: 0 0 6px 0;
+    }
+
+    .ksvl-splash-subtitle {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      color: #7A6D65;
+      margin: 0;
+    }
+
+    /* Three-dot pulsing loader */
+    .ksvl-splash-dots {
+      display: flex;
+      gap: 6px;
+      margin-top: 32px;
+    }
+
+    .ksvl-splash-dots span {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #B4491F;
+      animation: ksvl-dot-bounce 1.4s ease-in-out infinite;
+    }
+
+    .ksvl-splash-dots span:nth-child(2) { animation-delay: 0.16s; }
+    .ksvl-splash-dots span:nth-child(3) { animation-delay: 0.32s; }
+
+    @keyframes ksvl-ring-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes ksvl-dot-bounce {
+      0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+      40% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Dark mode */
+    @media (prefers-color-scheme: dark) {
+      .ksvl-splash {
+        background: linear-gradient(145deg, #14100E 0%, #1D1815 50%, #272120 100%);
+      }
+      .ksvl-splash-title { color: #F6F1ED; }
+      .ksvl-splash-subtitle { color: #A2958C; }
+      .ksvl-splash-ring {
+        border-top-color: #E4A17E;
+        border-right-color: #E4A17E40;
+      }
+      .ksvl-splash-dots span { background: #E4A17E; }
+      .ksvl-splash-logo {
+        box-shadow:
+          0 4px 16px rgba(0, 0, 0, 0.35),
+          0 8px 32px rgba(0, 0, 0, 0.25);
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Branded loading screen — visible until Flutter paints its first frame -->
+  <div id="ksvl-splash" class="ksvl-splash">
+    <div class="ksvl-splash-logo-wrap">
+      <img class="ksvl-splash-logo" width="96" height="96" src="icons/Icon-192.png" alt="KSVL Naturals">
+      <div class="ksvl-splash-ring"></div>
+    </div>
+    <p class="ksvl-splash-title">KSVL Naturals</p>
+    <p class="ksvl-splash-subtitle">Dry fruits · Spices · Namkeens</p>
+    <div class="ksvl-splash-dots">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
+
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
+  <script src="flutter_bootstrap.js" async></script>
+  <script>
+    // Remove splash once Flutter is ready.
+    window.addEventListener('flutter-first-frame', function () {
+      var splash = document.getElementById('ksvl-splash');
+      if (splash) {
+        splash.classList.add('fade-out');
+        setTimeout(function () { splash.remove(); }, 600);
+      }
+    });
+  </script>
+</body>
+</html>
